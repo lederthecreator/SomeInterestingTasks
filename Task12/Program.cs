@@ -3,7 +3,7 @@ using Task12.ProducerConsumer;
 using Task12.ReadersAndWriters;
 
 #region Task2
-//new SecondTask().Run();
+new SecondTask().Run();
 #endregion
 
 #region Task4
@@ -27,5 +27,5 @@ using Task12.ReadersAndWriters;
 #endregion
 
 #region Task12
-TwelveTask.Run();
+//TwelveTask.Run();
 #endregion
