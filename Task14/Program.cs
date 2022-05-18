@@ -54,7 +54,13 @@ using Task14;
 
 #region Task17
 
-SeventeenthTask.Run();
+//new SeventeenthTask().Run();
+
+#endregion
+
+#region Task18
+
+new EighteenTask().Run();
 
 #endregion
 
