@@ -15,7 +15,7 @@ public class CommonData
             Monitor.PulseAll(_data);
         }
     }
-
+    // Блокировать конкретную очередь, а не всю дату
     public byte[] GetData()
     {
         byte[] res = new byte[3];

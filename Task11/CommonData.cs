@@ -31,7 +31,9 @@ public class CommonData
                     pos = FindFirstZeroElement(workerType);
                     if (pos.HasValue)
                     {
-                        _field[pos.Value.i, pos.Value.j] = 1;
+                        // Попробовать лочить элемент массива а не весь массив целиком
+                         // Посмотреть лок коллекций вцелом 
+                        _field[pos.Value.i, pos.Value.j] += (int)workerType;
                         Monitor.PulseAll(_field);
                     }
                     else
@@ -40,7 +42,7 @@ public class CommonData
                 case WorkerType.BottomRightCorner:
                     pos = FindFirstZeroElement(workerType);
                     if (pos.HasValue)
-                        _field[pos.Value.i, pos.Value.j] = 2;
+                        _field[pos.Value.i, pos.Value.j] += (int)workerType;
                     else
                         EndWorkers[1] = workerType;
                     break;
@@ -58,6 +60,7 @@ public class CommonData
             while (FindZeroElement()) Monitor.Wait(_field);
             res = CopyArr();
             Monitor.PulseAll(_field);
+            
             int[,] CopyArr()
             {
                 var result = new int[Size, Size];

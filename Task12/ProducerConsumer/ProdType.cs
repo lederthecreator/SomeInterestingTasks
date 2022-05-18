@@ -2,7 +2,7 @@
 
 public enum ProdType
 {
-    RedColor,
-    GreenColor, 
-    BlueColor,
+    RedColor = 0,
+    GreenColor = 1, 
+    BlueColor = 2,
 }

@@ -11,6 +11,7 @@ public class Reader
 
     public void Read()
     {
+        // Создавать поток здесь
         for (int i = 0; i < 10; i += 1)
         {
             _db.ReadABook();

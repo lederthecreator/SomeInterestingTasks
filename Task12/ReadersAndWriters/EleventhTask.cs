@@ -14,6 +14,7 @@ public class EleventhTask
             var readerThread = new Thread(reader.Read);
             readerThread.Name = $"{i + 1}";
             readerThread.Start();
+            //сделать генератор потоков в котором отправляется некий Person в библиотеку
         }
     }
 }

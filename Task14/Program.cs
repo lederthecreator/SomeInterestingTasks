@@ -8,8 +8,6 @@
 // 3. Task хранит в себе асинхронную задачу которая не возвращает результат (для результата требуется Task<T>
 // Task позволяет создать задачу, запустить задачу, вызвать ожидание выполнения задачи и т.п.
 
-using Task14;
-
 #region Task4
 
 //FourthTask.Run();
@@ -42,12 +40,22 @@ using Task14;
 
 #region Task14
 
+using Task14;
+
 //FourteenthTask.Run();
 
 #endregion
 
 #region Task16
 
-
+//SixteenthTask.Run();
 
 #endregion
+
+#region Task17
+
+SeventeenthTask.Run();
+
+#endregion
+
+// Обедающие философы задачка на многопоточность (с одними вилками)

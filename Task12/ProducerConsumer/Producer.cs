@@ -13,6 +13,7 @@ public class Producer
 
     public void Run()
     {
+        // Увеличить количество потоков на чтение и запись (генератор потоков)
         var thread = new Thread(() =>
         {
             var i = 0;

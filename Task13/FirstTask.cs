@@ -43,12 +43,16 @@ public class FirstTask
             {
                 var value = rnd.Next(1, 100);
                 _array[i] = value;
+                Monitor.PulseAll(_locker);
             }
         }
     }
 
     private void CalculateSum(int leftIndex, int rightIndex)
     {
+        // LOCK и Monitor перекрывают функционал друг друга
+        // Разделить массив на рандомные части
+        // Глупость: массив массивов и каждый поток считает сумму столбца 
         lock (_locker)
         {
             for(int i = leftIndex; i < rightIndex; i+=1)
