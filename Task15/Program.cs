@@ -113,39 +113,3 @@ cts.Cancel();
 Console.WriteLine("CancellationToken " + await taskCTS);
 
 #endregion
-
-/*await PrintAsync();   // вызов асинхронного метода
-Console.WriteLine("Некоторые действия в методе Main");
-
-static void Print()
-{
-    Thread.Sleep(3000); // имитация продолжительной работы
-    Console.WriteLine("Hello METANIT.COM");
-}
-static async Task PrintAsync()
-{
-    Console.WriteLine("Начало метода PrintAsync"); // выполняется синхронно
-    await Task.Run(() => Print());                // выполняется асинхронно
-    Console.WriteLine("Конец метода PrintAsync");
-}   */
-
-/*PrintAsync();
-
-Console.WriteLine($"Продолжаем работу в методе Main [{Thread.CurrentThread.ManagedThreadId}]"); //
-
-Thread.Sleep(5000);
-
-Console.WriteLine($"Завершаем работу Main [{Thread.CurrentThread.ManagedThreadId}]");
-
-void Print()
-{
-    Thread.Sleep(3000);
-    Console.WriteLine($"Hello! [{Thread.CurrentThread.ManagedThreadId}]");
-}
-
-async void PrintAsync()
-{
-    Console.WriteLine($"Начало работы PrintAsync [{Thread.CurrentThread.ManagedThreadId}]");
-    await Task.Run(() => Print());
-    Console.WriteLine($"Конец метода PrintAsync [{Thread.CurrentThread.ManagedThreadId}]");
-}*/
