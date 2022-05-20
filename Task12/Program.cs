@@ -23,9 +23,9 @@ using Task12.ReadersAndWriters;
 #endregion
 
 #region Task11
-//EleventhTask.Run();
+EleventhTask.Run();
 #endregion
 
 #region Task12
-TwelveTask.Run();
+//TwelveTask.Run();
 #endregion

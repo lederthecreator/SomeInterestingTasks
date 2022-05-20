@@ -2,39 +2,78 @@
 
 public class Database
 {
-    private AutoResetEvent readerHandler = new AutoResetEvent(false);
     private AutoResetEvent writerHandler = new AutoResetEvent(true);
-    private int _readersCount = 0;
-    private List<string> books = new();
-    public Database() {}
-    public void ReadABook()
+    
+    private object _writerLocker = new();
+    private List<string> _books = new();
+
+    public Database()
     {
-        while(books.Count == 0) Thread.Sleep(30);
-        //readerHandler.WaitOne();
-        _readersCount += 1;
+        for (int i = 0; i < 100; i += 1)
+            _books.Add(i.ToString());
+    }
+    
+    /*public void ReadABook()
+    {
+        //while (_writersCount > 0) Monitor.Wait(_readerLocker);
+        Interlocked.Increment(ref _readersCount);
+        //_readersCount += 1;
         var rnd = new Random();
-        Console.WriteLine($"Читатель{Thread.CurrentThread.Name} заходит в базу данных");
-        var readingBook = books[rnd.Next(0, books.Count)];
-        Console.WriteLine($"Читатель{Thread.CurrentThread.Name} читает книгу{readingBook}");
-        Thread.Sleep(rnd.Next(100));
-        Console.WriteLine($"Читатель{Thread.CurrentThread.Name} выходит из базы данных");
-        _readersCount -= 1;
-        writerHandler.Set();
+        Console.WriteLine($"+++{Thread.CurrentThread.Name} заходит в базу данных");
+        var readingBook = _books[rnd.Next(0, _books.Count)];
+        Console.WriteLine($"==={Thread.CurrentThread.Name} читает книгу{readingBook}");
+        Thread.Sleep(rnd.Next(200));
+        Console.WriteLine($"---{Thread.CurrentThread.Name} выходит из базы данных");
+        //_readersCount -= 1;
+        Interlocked.Decrement(ref _readersCount);
+        if(_readersCount == 0) Monitor.Pulse(_writerLocker);
+    }*/
+
+    /*public void WriteABook()
+    {
+        // Monitor.Enter(_writerLocker);
+        // Monitor.Enter(_readerLocker);
+        // while (_readersCount > 0 || _writersCount > 0) Monitor.Wait(_writerLocker);
+        _readerMutex.WaitOne();
+        _writerMutex.WaitOne();
+        Interlocked.Increment(ref _writersCount);
+        //_writersCount += 1;
+        var rnd = new Random();
+        //Console.BackgroundColor = ConsoleColor.Red;
+        Console.WriteLine($"###{Thread.CurrentThread.Name} заходит в базу данных");
+        var addingBook = rnd.Next(0, 100).ToString();
+        _books.Add(addingBook);
+        Console.WriteLine($"###{Thread.CurrentThread.Name} добавил книгу{addingBook}. Выходит");
+        //Console.ResetColor();
+        Thread.Sleep(rnd.Next(200));
+        Interlocked.Decrement(ref _writersCount);
+        //_writersCount -= 1;
+        _readerMutex.ReleaseMutex();
+        _writerMutex.ReleaseMutex();
+    }*/
+
+    public void Read()
+    {
+        ReadWriteController.RequestRead();
+        Console.WriteLine($"{Thread.CurrentThread.Name} заходит в БД");
+        var bookToRead = new Random().Next(0, _books.Count);
+        Console.WriteLine($"{Thread.CurrentThread.Name} читает книгу{_books[bookToRead]}");
+        Console.WriteLine($"{Thread.CurrentThread.Name} выходит из БД");
+        ReadWriteController.ReleaseRead();
     }
 
-    public void WriteABook()
+    public void Write()
     {
-        writerHandler.WaitOne();
-        while (_readersCount > 0) Thread.Sleep(30);
-        var rnd = new Random();
-        Console.BackgroundColor = ConsoleColor.Red;
-        Console.WriteLine($"Писатель заходит в базу данных");
-        var addingBook = rnd.Next(0, 20).ToString();
-        Console.WriteLine("Писатель написал книгу");
-        books.Add(addingBook);
-        Thread.Sleep(rnd.Next(100, 300));
-        Console.WriteLine($"Писатель добавил книгу{addingBook}");
-        Console.ResetColor();
-        readerHandler.Set();
+        ReadWriteController.RequestWrite();
+        Console.WriteLine($"{Thread.CurrentThread.Name} заходит в БД");
+        var bookToAdd = new Random().Next(100, 1000);
+        lock (_writerLocker)
+        {
+            _books.Add(bookToAdd.ToString());
+        }
+        Console.WriteLine($"{Thread.CurrentThread.Name} добавил книгу {bookToAdd}");
+        Thread.Sleep(200);
+        Console.WriteLine($"{Thread.CurrentThread.Name} выходит из БД");
+        ReadWriteController.ReleaseWrite();
     }
 }
