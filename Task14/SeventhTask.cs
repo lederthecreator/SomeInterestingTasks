@@ -14,6 +14,7 @@ public class SeventhTask
                 Thread.Sleep(2000);
                 Console.WriteLine("Inner task ended");
             }, TaskCreationOptions.AttachedToParent); // Чтобы выполнялась как и родительская, необходимо добавить Options
+            innerTask.Wait();
             Console.WriteLine("Outer task ended");
         });
         outerTask.Wait();

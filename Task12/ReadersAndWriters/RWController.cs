@@ -12,6 +12,7 @@ public static class ReadWriteController
     public static void RequestRead()
     {
         while (_wCount > 0) _readEvent.WaitOne();
+        //lock попробовать
         Interlocked.Increment(ref _rCount);
         //_rCount += 1;
     }

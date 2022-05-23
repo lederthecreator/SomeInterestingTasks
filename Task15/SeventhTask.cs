@@ -43,7 +43,7 @@ public class SeventhTask
         Console.WriteLine($"FactorialTaskAsync result {result}");
     }
 
-    private static async Task<int> FactorialTaskIntAsync(int val)
+    public static async Task<int> FactorialTaskIntAsync(int val)
     {
         var result = 1;
         await Task.Run(() =>

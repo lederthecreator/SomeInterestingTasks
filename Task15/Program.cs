@@ -6,7 +6,7 @@ using Task15.FifthTask;
 
 #region Task4
 
-//FourthTask.Run();
+FourthTask.Run();
 
 #endregion
 
@@ -18,6 +18,8 @@ using Task15.FifthTask;
 // var reader = new FileAsyncReader(Directory.GetCurrentDirectory() + "/data.txt");
 // var result = reader.ReadAsync().Result;
 // Console.WriteLine($"Result is: \n {result}");
+
+//Сделать копирование файлов 
 
 #endregion
 
@@ -43,25 +45,27 @@ using Task15.FifthTask;
 
 #region Task9
 
-// var task1 = SeventhTask.FactorialTaskLongAsync(3);
-// var task2 = SeventhTask.FactorialTaskLongAsync(4);
-// var task3 = SeventhTask.FactorialTaskLongAsync(5);
+// var task1 = SeventhTask.FactorialTaskIntAsync(3);
+// var task2 = SeventhTask.FactorialTaskIntAsync(4);
+// var task3 = SeventhTask.FactorialTaskIntAsync(5);
 //
-// var results = await Task.WhenAll(task1, task2, task3);
-// Console.WriteLine($"{results[0]} {results[1]} {results[2]}");
+// //var results = await Task.WhenAll(task1, task2, task3);
+// Console.WriteLine($"{await task1} {await task2} {await task3}");
+
+// Опасность WaitAll прочитать
 
 #endregion
 
 #region Task10
 
-// try
-// {
-//     var res = await SeventhTask.FactorialTaskLongAsync(-10);
-// }
-// catch (Exception ex)
-// {
-//     Console.WriteLine(ex.Message);
-// }
+try
+{
+    var res = await SeventhTask.FactorialTaskLongAsync(-10, new CancellationTokenSource());
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
 
 #endregion
 
@@ -108,8 +112,8 @@ Task<int> taskCTS = Task.Run(() =>
     }
 });
             
-await Task.Delay(100);
-cts.Cancel();
+//await Task.Delay(100);
+cts.CancelAfter(100);
 Console.WriteLine("CancellationToken " + await taskCTS);
 
 #endregion

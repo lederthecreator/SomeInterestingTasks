@@ -14,10 +14,10 @@ public class FileAsyncReader
     public async Task<string> ReadAsync()
     {
         byte[] buffer = new byte[1024];
-        await Task.Run(() =>
+        await Task.Run(async() =>
         {
             using var fs = new FileStream(_path, FileMode.Open);
-            fs.Read(buffer);
+            return await fs.ReadAsync(buffer);
         });
         var result = Encoding.Default.GetString(buffer);
         return result;

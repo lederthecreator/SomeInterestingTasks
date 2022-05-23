@@ -15,9 +15,7 @@ public class TenthTask
             task.Start();
         }
         Console.WriteLine("Run ended");
-        Task.WaitAll(tasks);
-        
-        
+        Task.WaitAny(tasks);
     }
 
     private static void Print()

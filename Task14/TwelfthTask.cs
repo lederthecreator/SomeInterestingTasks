@@ -7,7 +7,8 @@ public class TwelfthTask
         int a = 5, b = 4;
         var sumTask = new Task<int>(() => Sum(a, b));
         sumTask.Start();
-
+        
+        //GetAwaiter.Result в чем отличие от Result
         var result = sumTask.Result;
         Console.WriteLine($"Result is {result}");
     }

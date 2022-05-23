@@ -11,6 +11,7 @@ public class FileAsyncWriter
         _path = path;
     }
 
+    
     public async Task WriteAsync(string data)
     {
         await Task.Run(() =>
