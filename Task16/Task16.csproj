@@ -11,4 +11,12 @@
       <PackageReference Include="NHibernate" Version="5.3.12" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Mappings\Product.hbm.xml" />
+      <EmbeddedResource Include="Mappings\Product.hbm.xml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <None Remove="app.config" />
+    </ItemGroup>
+
 </Project>
