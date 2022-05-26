@@ -1,0 +1,26 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+<hibernate-mapping xmlns = "urn:nhibernate-mapping-2.2" assembly = "Task17"
+                   namespace = "Task17.Domain">
+
+    <class name = "Order" table = "testdb.orders">
+
+        <id name = "Id">
+            <generator class = "sequence">
+                <param name="sequence">testdb."Order_id_seq"</param>
+            </generator>
+        </id>
+
+        <property name = "Ordered"/>
+        <property name = "Shipped"/>
+
+        <component name = "ShipTo">
+            <property name = "Street"/>
+            <property name = "City"/>
+            <property name = "Province"/>
+            <property name = "Country"/>
+        </component>
+
+        <many-to-one name = "Customer" column = "CustomerId"/>
+
+    </class>
+</hibernate-mapping>
