@@ -1,8 +1,8 @@
-﻿using Task16.Domain;
+﻿using NHibernate;
 using NHibernate.Cfg;
-using NHibernate;
+using Task18.Domain;
 
-namespace Task16.Repositories;
+namespace Task18.Repositories;
 
 public class NHibernateHelper
 {
@@ -14,13 +14,12 @@ public class NHibernateHelper
         {
             if (_sessionFactory is null)
             {
-                var configuration = new Configuration();
-                configuration.Configure();
-               // configuration.AddAssembly(typeof(Person).Assembly);
-               // configuration.AddAssembly(typeof(Car).Assembly);
-                _sessionFactory = configuration.BuildSessionFactory();
+                var cfg = new Configuration();
+                cfg.Configure();
+                AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+                //cfg.AddAssembly(typeof(Worker).Assembly);
+                _sessionFactory = cfg.BuildSessionFactory();
             }
-
             return _sessionFactory;
         }
     }

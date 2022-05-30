@@ -8,15 +8,18 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Iesi.Collections" Version="4.0.4" />
       <PackageReference Include="NHibernate" Version="5.3.12" />
+      <PackageReference Include="Npgsql" Version="7.0.0-preview.4" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Mappings\Product.hbm.xml" />
-      <EmbeddedResource Include="Mappings\Product.hbm.xml">
+      <None Remove="Mappings\Worker.hbm.xml" />
+      <EmbeddedResource Include="Mappings\Worker.hbm.xml" />
+      <None Remove="hibernate.cfg.xml" />
+      <EmbeddedResource Include="hibernate.cfg.xml">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </EmbeddedResource>
-      <None Remove="app.config" />
     </ItemGroup>
 
 </Project>
