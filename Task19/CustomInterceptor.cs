@@ -7,6 +7,7 @@ namespace Task19;
 
 public class CustomInterceptor : EmptyInterceptor
 {
+    //sqlstring посмотреть 
     public override SqlString OnPrepareStatement(SqlString sql)
     {
         Debug.Write("NHibernate: ");

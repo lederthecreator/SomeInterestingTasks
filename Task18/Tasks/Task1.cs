@@ -8,6 +8,7 @@ public class Task1
     public static void Run()
     {
         var repo = new WorkerRepository();
+        // Contains 
         var result = repo.GetByName("Дмитрий")
             .Union(repo.GetByName("Альберт"))
             .Union(repo.GetByName("Артем"));

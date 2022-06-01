@@ -54,10 +54,10 @@ public class WorkerRepository : IWorkerRepository
         return result;
     }
 
-    public ICollection<Worker> GetAllData()
+    public IQueryable<Worker> GetAllData()
     {
         using var session = NHibernateHelper.OpenSession();
-        var result = session.Query<Worker>().ToList();
+        var result = session.Query<Worker>();
         return result;
     }
 }

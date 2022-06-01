@@ -5,23 +5,22 @@ using NHibernate;
 using NHibernate.SqlCommand;
 using NLog;
 using NLog.Extensions.Logging;
+using Task18.Domain;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
+namespace Task18;
 
-namespace Task20;
-
-public class MyInterceptor : EmptyInterceptor
+public class CustomInterceptor : EmptyInterceptor
 {
     private IConfigurationRoot _config;
     private ServiceProvider _serviceProvider;
 
-    public MyInterceptor()
+    public CustomInterceptor()
     {
         _config = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            //.AddJsonFile("appsettings.json", optional:true, reloadOnChange:true)
             .Build();
         _serviceProvider = new ServiceCollection()
-            .AddTransient<Fluenter>()
+            .AddTransient<Worker>()
             .AddLogging(loggingBuilder =>
             {
                 loggingBuilder.ClearProviders();
@@ -32,7 +31,7 @@ public class MyInterceptor : EmptyInterceptor
     public override SqlString OnPrepareStatement(SqlString sql)
     {
         var logger = LogManager.GetCurrentClassLogger();
-        var fluenter = _serviceProvider.GetRequiredService<Fluenter>();
+        var fluenter = _serviceProvider.GetRequiredService<Worker>();
         logger.Debug(sql.ToString());
 
         return base.OnPrepareStatement(sql);

@@ -10,5 +10,5 @@ public interface IWorkerRepository
     public ICollection<Worker> GetByName(string name);
     public ICollection<Worker> GetByLogin(string name);
 
-    public ICollection<Worker> GetAllData();
+    public IQueryable<Worker> GetAllData();
 }

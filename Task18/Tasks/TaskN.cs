@@ -14,9 +14,9 @@ public class TaskN
         //возраста свою минимальную зарплату)
         var res = data
             .GroupBy(worker => worker.Age)
-            .Select(g => new { Age = g.Key, Salary = g.Min(worker => worker.Salary) })
+            .Select(g => new {Age = g.Key, Salary = g.Min(worker => worker.Salary)})
             .ToList();
-        
+
         //  Найдите самый большой возраст по группам зарплат (для каждой
         //зарплаты свой максимальный возраст)
         var res2 = data

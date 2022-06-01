@@ -8,18 +8,25 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="FluentNHibernate" Version="3.1.0" />
       <PackageReference Include="Iesi.Collections" Version="4.0.4" />
+      <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0-preview.4.22229.4" />
       <PackageReference Include="NHibernate" Version="5.3.12" />
+      <PackageReference Include="NLog" Version="5.0.0" />
+      <PackageReference Include="NLog.Extensions.Logging" Version="5.0.0" />
       <PackageReference Include="Npgsql" Version="7.0.0-preview.4" />
     </ItemGroup>
 
     <ItemGroup>
       <None Remove="Mappings\Worker.hbm.xml" />
-      <EmbeddedResource Include="Mappings\Worker.hbm.xml" />
       <None Remove="hibernate.cfg.xml" />
-      <EmbeddedResource Include="hibernate.cfg.xml">
+      <None Update="Repositories\nlog.config">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </EmbeddedResource>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Task20\Task20.csproj" />
     </ItemGroup>
 
 </Project>
