@@ -1,4 +1,6 @@
-﻿using Task18.Domain;
+﻿using System.Diagnostics;
+using NHibernate.Cfg;
+using Task18.Domain;
 using Task18.Repositories;
 using Task18.Tasks;
 
@@ -10,7 +12,7 @@ var repo = new WorkerRepository();
 
 using var session = NHibernateHelper.OpenSession();
 
-var data = session.Query<Worker>().ToList();
+//var data = session.Query<Worker>().ToList();
 
 /*Выберите из таблицы workers записи с login равным 'user1', 'user2', 'user3'
   Выберите из таблицы workers записи с name равным ‘Алина’, ‘Андрей’, ‘Виктория’, и логином,
@@ -30,13 +32,14 @@ var data = session.Query<Worker>().ToList();
   формате 'год-месяц-день часы:минуты:секунды' 
    Вставьте в таблицу workers запись с полем date с текущей датой в формате 'год-месяц-день'. */
 
-var task1 = session.Query<Worker>()
-    .Where(w => 
-        w.Name == "Дмитрий" || 
-        w.Name.Contains("Альберт") || 
-        w.Name.Contains("Артем"))
-    .ToList();
 
+// var task1 = session.Query<Worker>()
+//     .Where(w => 
+//         w.Name == "Дмитрий" || 
+//         w.Name.Contains("Альберт") || 
+//         w.Name.Contains("Артем"))
+//     .ToList();
+/*
 var task2 = session.Query<Worker>()
     .Where(w => w.Login == "user1" || w.Login == "user2" || w.Login == "user3")
     .ToList();
@@ -159,12 +162,34 @@ var task27 = session.Query<Worker>()
 
 try
 {
-    var myTask = session.Query<Worker>()
-        .Any(w => w.Name.Length > 3);
+    // var myTask = session.Query<Worker>()
+    //     .Any(w => session.Query<Worker>());
 }
 catch (Exception ex)
 {
     Console.WriteLine("taskN: " + ex.Message);
+}
+*/
+
+
+var anyNames = new List<string> {"Артем", "Дмитрий", "Альберт"};
+
+var anyTask = session.Query<Worker>()
+    .Where(w => anyNames.Any(name => w.Name == name))
+    .Select(w => w.Name)    
+    .ToList();
+
+var containsNames = new List<string> {"Виктория", "Андрей"};
+try
+{
+    var containsTask = session.Query<Worker>()
+        .Where(w => containsNames.Contains(w.Name))
+        .ToList();
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+    Debug.WriteLine(ex.Message);
 }
 
 
